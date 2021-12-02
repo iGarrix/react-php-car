@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import {useActions} from "../../../hooks/useActions";
-//import { useEffect } from "react";
-
 const Header = () => {
   const { user, isAuth } = useTypedSelector((state) => state.auth);
-  const {logoutUser} = useActions(); // getAuthUser
-
-  // Get user
-  // useEffect(() => {
-  //   getAuthUser();
-  // }, []);
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -45,9 +35,9 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <button type="button" className="btn btn-primary" onClick={() => logoutUser()}>
-                 Вихід
-                </button>
+                <Link className="nav-link" to="/logout">
+                  Вихід
+                </Link>
               </li>
             </ul>
           ) : (
