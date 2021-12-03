@@ -1,5 +1,3 @@
-
-
 export interface ILoginModel {
     email: string,
     password: string
@@ -30,8 +28,6 @@ export interface AuthState {
     user: null|IUser,
     isAuth: boolean
 }
-
-
 
 export interface LoginAuthSuccessAction {
     type: AuthActionTypes.LOGIN_AUTH_SUCCESS,
