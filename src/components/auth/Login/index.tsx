@@ -43,7 +43,7 @@ const LoginPage : FC = () => {
     catch(ex) {
       const serverErrors = ex as ServerLoginError;
       setServerErrors(serverErrors);
-      if (serverErrors.password && serverErrors.password.length != 0) {
+      if (serverErrors.password && serverErrors.password.length !== 0) {
         setFieldError("password", serverErrors.password[0]);
       }
       //console.log("Login problem", serverErrors);

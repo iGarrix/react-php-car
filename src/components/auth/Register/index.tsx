@@ -43,16 +43,13 @@ const RegisterPage : FC = () => {
        catch(ex) {
         const serverErrors = ex as ServerRegisterError;
         setServerErrors(serverErrors);
-        if (serverErrors.email === undefined) {
-          setServerErrors(prev => {return {...prev, error: "Error register"}});
-        }
-        if (serverErrors.email && serverErrors.email.length != 0) {
+        if (serverErrors.email && serverErrors.email.length !== 0) {
           setFieldError("email", serverErrors.email[0]);
         }
-        if (serverErrors.password && serverErrors.password.length != 0) {
+        if (serverErrors.password && serverErrors.password.length !== 0) {
           setFieldError("password", serverErrors.password[0]);
         }
-        if (serverErrors.password_confirmation && serverErrors.password_confirmation.length != 0 || serverErrors.password_confirmation !== serverErrors.password) {
+        if (serverErrors.password_confirmation && serverErrors.password_confirmation.length !== 0 || serverErrors.password_confirmation !== serverErrors.password) {
           setFieldError("confirm password", serverErrors.password_confirmation[0]);
         }
         setIsSubmitted(false);
@@ -66,7 +63,6 @@ const RegisterPage : FC = () => {
   });
 
   const { errors, touched, handleChange, handleSubmit, setFieldError } = formik;
-
 return (
 <>
 <div className="row">
