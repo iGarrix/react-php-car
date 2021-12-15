@@ -1,11 +1,11 @@
 import * as AuthActionCreators from '../../components/auth/Login/actions';
 import * as RegisterActionCreators from '../../components/auth/Register/actions'
-import * as AutoActionCreators from '../../components/Auto/AutoList/actions'
-import * as AddAutoActionCreators from '../../components/Auto/AddAuto/actions'
+import * as ProductActionCreators from '../../components/products/actions';
+import * as ProfileActionCreators from '../../components/MyProfile/actions';
 
 export default {
     ...AuthActionCreators,
     ...RegisterActionCreators,
-    ...AutoActionCreators,
-    ...AddAutoActionCreators,
+    ...ProductActionCreators,
+    ...ProfileActionCreators,
 }

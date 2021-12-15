@@ -21,16 +21,16 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link" to="/auto/list">
-                Список авто
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/auto/create">
-                Додати авто
-              </Link>
-            </li>
+              <li className="nav-item">
+                  <Link className="nav-link" to="/products/addproducts">
+                    Додати продукт
+                  </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/products/list">
+                  Продукти
+                </Link>
+              </li>
           </ul>
           {isAuth ? (
             <ul className="navbar-nav">
