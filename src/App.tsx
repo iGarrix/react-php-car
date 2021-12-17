@@ -9,6 +9,7 @@ import DefaultLayout from './components/containers/DefaultLayout';
 import MyProfile from './components/MyProfile/MyProfile';
 import ProductsListPage from './components/products/List';
 import AddProduct from './components/products/AddProduct';
+import EditProduct from './components/products/EditProduct';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<HomePage />} />
         <Route path="products/list" element={<ProductsListPage />} />
+        <Route path="products:id" element={<EditProduct />} />
         <Route path="products/addproducts" element={<AddProduct />} />
         <Route path="auto/find" element={<LoginPage />} />
         <Route path="login" element={<LoginPage />} />

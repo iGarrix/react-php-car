@@ -5,7 +5,6 @@ import { useActions } from "../../../hooks/useActions";
 import InputGroup from "../../common/InputGroup";
 import InputGroupFile from "../../common/InputGroupFile";
 import { IProductModel, ServerProductError } from "../types";
-import { ProductSchema } from "./validation";
 
 const AddProduct : React.FC = () => {
 

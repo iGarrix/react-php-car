@@ -9,7 +9,7 @@ interface InputGroupFileProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const InputGroupFile: FC<InputGroupFileProps> = ({label, field, onChange, touched=null, error=null, type="text"}: InputGroupFileProps) => {
+const InputGroupFile: FC<InputGroupFileProps> = ({label, field, onChange, touched=null, error=null}: InputGroupFileProps) => {
   return (
     <div className="mb-3">
       <label htmlFor={field} className="form-label">

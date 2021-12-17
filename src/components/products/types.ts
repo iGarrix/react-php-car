@@ -1,5 +1,8 @@
 export enum ProductsActionTypes {
-    FETCH_PRODUCTS="FETCH_PRODUCTS"
+    FETCH_PRODUCTS="FETCH_PRODUCTS",
+    EDIT_PRODUCTS="EDIT_PRODUCTS",
+    UPDATE_EDIT_PRODUCT="UPDATE_EDIT_PRODUCT",
+    DELETE_PRODUCT="DELETE_PRODUCT",
 }
 
 export interface IProductItem {
@@ -22,10 +25,19 @@ export type ServerProductError = {
     error: string 
 };
 
+export interface IEditData {
+    name: string,
+    detail: string,
+}
+
 export interface IProductsResponse {
     current_page: number;
     last_page: number;
     data: Array<IProductItem>;
+}
+
+export interface IProductResponse {
+    data: IProductItem;
 }
 
 export interface IProductSearch {
@@ -35,13 +47,31 @@ export interface IProductSearch {
 
 export interface ProductsState {
     products: Array<IProductItem>;
+    edit_product: IProductItem | null;
     last_page: number;
 }
 
+export interface FetchProductData {
+    products: Array<IProductItem>;
+    last_page: number;
+}
 
 export interface FetchProductsAction {
     type: ProductsActionTypes.FETCH_PRODUCTS,
-    payload: ProductsState
+    payload: FetchProductData
+}
+export interface FetchEditProductsAction {
+    type: ProductsActionTypes.EDIT_PRODUCTS,
+    payload: IProductItem
+}
+export interface UpdateEditProductsAction {
+    type: ProductsActionTypes.UPDATE_EDIT_PRODUCT,
+    payload: IProductItem
 }
 
-export type ProductActions = FetchProductsAction;
+export interface DeleteProductsAction {
+    type: ProductsActionTypes.DELETE_PRODUCT,
+    payload: number | string
+}
+
+export type ProductActions = FetchProductsAction | FetchEditProductsAction | UpdateEditProductsAction | DeleteProductsAction;

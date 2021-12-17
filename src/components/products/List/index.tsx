@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { IProductSearch } from "../types";
@@ -10,9 +10,10 @@ import "./index.css";
 const ProductsListPage: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [localsearch, setLocalsearch] = useState("");
   const { products, last_page } = useTypedSelector((store) => store.product);
 
-  const { fetchProducts } = useActions();
+  const { fetchProducts, deleteProducts } = useActions();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -20,6 +21,8 @@ const ProductsListPage: React.FC = () => {
     page: searchParams.get("page"),
     name: searchParams.get("name"),
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -39,11 +42,39 @@ const ProductsListPage: React.FC = () => {
     buttons.push(i);
   }
 
+  const DeleteProduct = (id: number) => {
+    async function getProducts() {
+      setLoading(true);
+      try {
+        await deleteProducts(id);
+        setLoading(false);
+      } catch (ex) {
+        setLoading(false);
+      }
+    }
+    getProducts();
+  }
+
+  const onSearch = () => {
+    setSearch(prev => {
+      prev.name = localsearch;
+      return {...prev};
+    });
+    const searchdata : IProductSearch = {
+      page: search.page,
+      name: localsearch,
+    } 
+    navigate("?"+qs.stringify(searchdata));
+  }
+
   return (
     <>
       <h1 className="text-center">Товари на сайті</h1>
       {loading && <h2>Loading ...</h2>}
-         
+      <div className="d-flex">
+        <input type="text" placeholder="search product ..." className="form-control" onChange={(e) => setLocalsearch(e.target.value)}/>
+        <button type="button" className="btn btn-success mx-1" onClick={() => onSearch()}>Search</button>
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -51,6 +82,8 @@ const ProductsListPage: React.FC = () => {
             <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Details</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -58,9 +91,29 @@ const ProductsListPage: React.FC = () => {
             return (
               <tr key={item.id}>
                 <th scope="row">{item.id}</th>
-                <th><img src={item.image.length !== 0 ? `http://laravel:8000/images/` + item.image : "https://rolan-opt.com.ua/tpl/default/img/default-image.jpg"} className="imgs" /></th>
+                <th>
+                  <img
+                    src={
+                      item.image.length !== 0
+                        ? `http://laravel:8000/images/` + item.image
+                        : "https://rolan-opt.com.ua/tpl/default/img/default-image.jpg"
+                    }
+                    className="imgs"
+                  />
+                </th>
                 <td>{item.name}</td>
                 <td>{item.detail}</td>
+                <td>
+                  <Link
+                    to={"/products:" + item.id}
+                    className="btn btn-success mx-1"
+                    >
+                    Edit
+                  </Link>
+                </td>
+                <td>
+                  <button type="button" className="btn btn-danger mx-1" onClick={() => DeleteProduct(item.id)}>Delete</button>
+                </td>
               </tr>
             );
           })}
